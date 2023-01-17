@@ -1,0 +1,29 @@
+{
+  "persons": [
+    { "firstName":"adult1", "lastName":"adult1", "address":"address1", "city":"Culver", "zip":"97451", "phone":"841-874-6512", "email":"jaboyd@email.com" },
+    { "firstName":"child1", "lastName":"child1", "address":"address1", "city":"Culver", "zip":"97451", "phone":"841-874-6512", "email":"jaboyd@email.com" },
+    { "firstName":"adult2", "lastName":"adult2", "address":"address2", "city":"Culver", "zip":"97451", "phone":"841-874-6512", "email":"jaboyd@email.com" },
+    { "firstName":"adult3", "lastName":"adult3", "address":"address3", "city":"Culver", "zip":"97451", "phone":"841-874-7878", "email":"soph@email.com" },
+    { "firstName":"adult4", "lastName":"adult4", "address":"address3", "city":"Culver", "zip":"97451", "phone":"841-874-7512", "email":"ward@email.com" },
+    { "firstName":"child2", "lastName":"child2", "address":"address3", "city":"Culver", "zip":"97451", "phone":"841-874-7512", "email":"zarc@email.com" },
+    { "firstName":"adult5", "lastName":"adult5", "address":"address4", "city":"Culver", "zip":"97451", "phone":"841-874-7458", "email":"gramps@email.com" },
+    { "firstName":"adult6", "lastName":"adult6", "address":"address5", "city":"Culver", "zip":"97451", "phone":"841-874-7458", "email":"ggterzps@email.com" }
+  ],
+  "firestations": [
+    { "address":"address1", "station":101 },
+    { "address":"address5", "station":101 },
+    { "address":"address2", "station":102 },
+    { "address":"address3", "station":103 },
+    { "address":"address4", "station":104 }
+  ],
+  "medicalrecords": [
+    { "firstName":"adult1", "lastName":"adult1", "birthdate":"03/06/1984", "medications":["aznol:350mg", "hydrapermazol:100mg"], "allergies":["nillacilan"] },
+    { "firstName":"child1", "lastName":"child1", "birthdate":"09/06/2017", "medications":[], "allergies":[] },
+    { "firstName":"adult2", "lastName":"adult2", "birthdate":"09/06/2000", "medications":[], "allergies":["shellfish"] },
+    { "firstName":"adult3", "lastName":"adult3", "birthdate":"03/06/1988", "medications":["aznol:60mg", "hydrapermazol:900mg", "pharmacol:5000mg", "terazine:500mg"], "allergies":["peanut", "shellfish", "aznol"] },
+    { "firstName":"adult4", "lastName":"adult4", "birthdate":"03/06/1985", "medications":[], "allergies":[] },
+    { "firstName":"child2", "lastName":"child2", "birthdate":"03/06/2017", "medications":[], "allergies":[] },
+    { "firstName":"adult5", "lastName":"adult5", "birthdate":"08/06/1945", "medications":["tradoxidine:400mg"], "allergies":[] },
+    { "firstName":"adult6", "lastName":"adult6", "birthdate":"03/06/1987", "medications":[], "allergies":[] }
+  ]
+}
