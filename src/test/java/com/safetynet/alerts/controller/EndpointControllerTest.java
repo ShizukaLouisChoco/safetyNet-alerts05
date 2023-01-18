@@ -141,7 +141,7 @@ public class EndpointControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    @DisplayName("Test GetMapping /personInfo?firstName=firstName1&lastName=lastName1")
+    @DisplayName("Test GetMapping /personInfo?firstName=adult1&lastName=adult1")
     public void getMappingGetPersonsByFirstNameAndLastNameTest() throws Exception {
         //GIVEN
         final var  firstName = "adult1";

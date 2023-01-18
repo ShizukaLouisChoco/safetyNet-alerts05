@@ -32,8 +32,8 @@ public class PersonServiceTest {
     @BeforeEach
     public void init(){
         personList = new ArrayList<>();
-        person = new Person("firstName1", "lastName1","address1","city1","zip1","phone1","email1");
-        person2 = new Person("firstName2", "lastName2","address2","city2","zip2","phone2","email2");
+        person = new Person("adult1", "adult1","address1","Culver","97451","841-874-6512","jaboyd@email.com");
+        person2 = new Person("child1", "child1","address1","Culver","97451","841-874-6512","jaboyd@email.com");
         personList.add(person);
         personList.add(person2);
     }

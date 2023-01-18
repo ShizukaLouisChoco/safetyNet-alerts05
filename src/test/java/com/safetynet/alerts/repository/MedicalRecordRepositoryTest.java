@@ -30,20 +30,9 @@ public class MedicalRecordRepositoryTest {
     List<MedicalRecord> testList;
     @BeforeEach
     public void init(){
-        LocalDate birthdate1 = LocalDate.of(2001,01,01);
-        LocalDate birthdate2 = LocalDate.of(2002,02,02);
-        List<String> medications1 = new ArrayList<>();
-        List<String> medications2 = new ArrayList<>();
-        medications1.add("medication1");
-        medications2.add("medication2");
-        List<String> allergies1 = new ArrayList<>();
-        List<String> allergies2 = new ArrayList<>();
-        allergies1.add("allergies1");
-        allergies2.add("allergies2");
-
         testList = new ArrayList<>();
-        testList.add(new MedicalRecord("first name1","last name1",birthdate1,medications1,allergies1));
-        testList.add(new MedicalRecord("first name2","last name2",birthdate2,medications2,allergies2));
+        testList.add(new MedicalRecord("adult1","adult1",LocalDate.of(1984,3,6),List.of("aznol:350mg", "hydrapermazol:100mg"),List.of("nillacilan")));
+        testList.add(new MedicalRecord("child1","child1",LocalDate.of(2017,9,6),List.of(),List.of()));
 
         AllData allData = new AllData(null, null, testList);
         this.dataStorage.setAllData(allData);
@@ -67,32 +56,27 @@ public class MedicalRecordRepositoryTest {
     public void testFindMedicalRecordByFirstNameAndLastName(){
         //GIVEN
         Optional<MedicalRecord> optionalMedicalRecord = Optional.ofNullable(testList.stream()
-                .filter(m -> m.getFirstName().equals("first name1") && m.getLastName().equals("last name1"))
+                .filter(m -> m.getFirstName().equals("child1") && m.getLastName().equals("child1"))
                 .findFirst()
                 .orElseThrow(MedicalRecordNotFoundException::new));
         //WHEN
 
-        Optional<MedicalRecord> response = medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("first name1","last name1");
+        Optional<MedicalRecord> response = medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("child1","child1");
         //THEN
         assertThat(Optional.of(response)).hasValue(optionalMedicalRecord);
-        assertThat(response.toString()).isEqualTo("Optional[MedicalRecord(firstName=first name1, lastName=last name1, birthdate=2001-01-01, medications=[medication1], allergies=[allergies1])]");
+        assertThat(response.toString()).isEqualTo("Optional[MedicalRecord(firstName=child1, lastName=child1, birthdate=2017-09-06, medications=[], allergies=[])]");
     }
     @Test
     @DisplayName("saveMedicalRecord(MedicalRecord medicalRecord) saves medicalRecord and returns MedicalRecord")
     public void testSaveMedicalRecord(){
         //GIVEN
-        LocalDate birthdate3 = LocalDate.of(2002,02,02);
-        List<String> medications3 = new ArrayList<>();
-        medications3.add("medication3");
-        List<String> allergies3 = new ArrayList<>();
-        allergies3.add("allergies3");
-        MedicalRecord medicalRecord3 = new MedicalRecord("first name3","last name3",birthdate3,medications3,allergies3);
+        MedicalRecord medicalRecord3 = new MedicalRecord("adult2","adult2",LocalDate.of(2000,9,6),List.of(),List.of("shellfish"));
         assertThat(testList).doesNotContain(medicalRecord3);
         //WHEN
         medicalRecordRepository.saveMedicalRecord(medicalRecord3);
         //THEN
         assertThat(testList).contains(medicalRecord3);
-        assertThat(testList.toString()).isEqualTo("[MedicalRecord(firstName=first name1, lastName=last name1, birthdate=2001-01-01, medications=[medication1], allergies=[allergies1]), MedicalRecord(firstName=first name2, lastName=last name2, birthdate=2002-02-02, medications=[medication2], allergies=[allergies2]), MedicalRecord(firstName=first name3, lastName=last name3, birthdate=2002-02-02, medications=[medication3], allergies=[allergies3])]");
+        assertThat(testList.toString()).isEqualTo("[MedicalRecord(firstName=adult1, lastName=adult1, birthdate=1984-03-06, medications=[aznol:350mg, hydrapermazol:100mg], allergies=[nillacilan]), MedicalRecord(firstName=child1, lastName=child1, birthdate=2017-09-06, medications=[], allergies=[]), MedicalRecord(firstName=adult2, lastName=adult2, birthdate=2000-09-06, medications=[], allergies=[shellfish])]");
     }
 
 
@@ -108,7 +92,7 @@ public class MedicalRecordRepositoryTest {
         medicalRecordRepository.updateMedicalRecord(existingMedicalRecord.getFirstName(),existingMedicalRecord.getLastName(),newMedicalRecord);
         //THEN
         assertThat(testList).contains(newMedicalRecord);
-        assertThat(testList.toString()).isEqualTo("[MedicalRecord(firstName=first name1, lastName=last name1, birthdate=1990-02-02, medications=[medication1], allergies=[allergies1]), MedicalRecord(firstName=first name2, lastName=last name2, birthdate=2002-02-02, medications=[medication2], allergies=[allergies2])]");
+        assertThat(testList.toString()).isEqualTo("[MedicalRecord(firstName=adult1, lastName=adult1, birthdate=1990-02-02, medications=[aznol:350mg, hydrapermazol:100mg], allergies=[nillacilan]), MedicalRecord(firstName=child1, lastName=child1, birthdate=2017-09-06, medications=[], allergies=[])]");
     }
 
     @Test
@@ -121,7 +105,7 @@ public class MedicalRecordRepositoryTest {
         medicalRecordRepository.deleteMedicalRecordByFirstNameAndLastName(deletingMedicalRecord.getFirstName(),deletingMedicalRecord.getLastName());
         //THEN
         assertThat(testList).doesNotContain(deletingMedicalRecord);
-        assertThat(testList.toString()).isEqualTo("[MedicalRecord(firstName=first name2, lastName=last name2, birthdate=2002-02-02, medications=[medication2], allergies=[allergies2])]");
+        assertThat(testList.toString()).isEqualTo("[MedicalRecord(firstName=child1, lastName=child1, birthdate=2017-09-06, medications=[], allergies=[])]");
     }
 
 }

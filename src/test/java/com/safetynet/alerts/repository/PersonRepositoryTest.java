@@ -28,9 +28,9 @@ public class PersonRepositoryTest {
     @BeforeEach
     public void init(){
         testList = new ArrayList<>();
-        testList.add( new Person("first name1","last name1","address1","city1","zip1","phone1","email1"));
-        testList.add(new Person("first name2","last name2","address2","city2","zip2","phone2","email2"));
-        testList.add(new Person("first name3","last name3","address3","city3","zip3","phone3","email3"));
+        testList.add( new Person("adult1","adult1","address1","Culver","97451","841-874-6512","jaboyd@email.com"));
+        testList.add(new Person("child1","child1","address1","Culver","97451","841-874-6512","jaboyd@email.com"));
+        testList.add(new Person("adult2","adult2","address2","Culver","97451","841-874-6512","soph@email.com"));
 
         AllData allData = new AllData(testList, null, null);
         this.dataStorage.setData(allData);
@@ -52,14 +52,14 @@ public class PersonRepositoryTest {
     @DisplayName("findPersonByFirstNameAndLastName returns Optional<Person> filtered by firstName and lastName") public void testFindPersonByFirstNameAndLastName(){
         //GIVEN
         Optional<Person> optionalPerson = Optional.ofNullable(testList.stream()
-                .filter(p -> p.getFirstName().equals("first name1") && p.getLastName().equals("last name1"))
+                .filter(p -> p.getFirstName().equals("adult1") && p.getLastName().equals("adult1"))
                 .findFirst()
                 .orElseThrow(PersonNotFoundException::new));
         //WHEN
-        Optional<Person> response = personRepository.findPersonByFirstNameAndLastName("first name1","last name1");
+        Optional<Person> response = personRepository.findPersonByFirstNameAndLastName("adult1","adult1");
         //THEN
         assertThat(Optional.of(response)).hasValue(optionalPerson);
-        assertThat(response.toString()).isEqualTo("Optional[Person(firstName=first name1, lastName=last name1, address=address1, city=city1, zip=zip1, phone=phone1, email=email1)]");
+        assertThat(response.toString()).isEqualTo("Optional[Person(firstName=adult1, lastName=adult1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com)]");
     }
 
 
@@ -101,10 +101,10 @@ public class PersonRepositoryTest {
         //GIVEN
         var streamPerson = testList
                 .stream()
-                .filter(p -> p.getCity().equals("city1"))
+                .filter(p -> p.getCity().equals("Culver"))
                 .toList();
         //WHEN
-        Stream<Person> response = personRepository.getAllPersonsByCity("city1");
+        Stream<Person> response = personRepository.getAllPersonsByCity("Culver");
         //THEN
         assertThatStream(response).isEqualTo(streamPerson);
     }
@@ -118,20 +118,20 @@ public class PersonRepositoryTest {
         var dataBefore = new ArrayList<>(originalData);
 
         //WHEN
-        personRepository.deleteByFirstNameAndLastName("first name1", "last name1");
+        personRepository.deleteByFirstNameAndLastName("adult1", "adult1");
         //THEN
         var dataAfter = dataStorage.getPersons();
 
         assertThat(dataBefore).isNotSameAs(dataAfter);
-        assertThat(dataBefore.toString()).isEqualTo("[Person(firstName=first name1, lastName=last name1, address=address1, city=city1, zip=zip1, phone=phone1, email=email1), Person(firstName=first name2, lastName=last name2, address=address2, city=city2, zip=zip2, phone=phone2, email=email2), Person(firstName=first name3, lastName=last name3, address=address3, city=city3, zip=zip3, phone=phone3, email=email3)]");
-        assertThat(dataAfter.toString()).isEqualTo("[Person(firstName=first name2, lastName=last name2, address=address2, city=city2, zip=zip2, phone=phone2, email=email2), Person(firstName=first name3, lastName=last name3, address=address3, city=city3, zip=zip3, phone=phone3, email=email3)]");
+        assertThat(dataBefore.toString()).isEqualTo("[Person(firstName=adult1, lastName=adult1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=child1, lastName=child1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=adult2, lastName=adult2, address=address2, city=Culver, zip=97451, phone=841-874-6512, email=soph@email.com)]");
+        assertThat(dataAfter.toString()).isEqualTo("[Person(firstName=child1, lastName=child1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=adult2, lastName=adult2, address=address2, city=Culver, zip=97451, phone=841-874-6512, email=soph@email.com)]");
     }
 
     @Test
     @DisplayName("savePerson(Person person) save person and returns person")
     public void testSavePerson(){
         //GIVEN
-        Person person = new Person("first name4","last name4","address4","city4","zip4","phone4","email4");
+        Person person = new Person("adult4","adult4","address3","Culver","97451","841-874-7512","ward@email.com");
         var originalData = dataStorage.getPersons();
         var dataBefore = new ArrayList<>(originalData);
         assertThat(dataBefore).doesNotContain(person);
@@ -142,15 +142,15 @@ public class PersonRepositoryTest {
 
         assertThat(dataBefore).isNotSameAs(dataAfter);
         assertThat(dataAfter).contains(person);
-        assertThat(dataBefore.toString()).isEqualTo("[Person(firstName=first name1, lastName=last name1, address=address1, city=city1, zip=zip1, phone=phone1, email=email1), Person(firstName=first name2, lastName=last name2, address=address2, city=city2, zip=zip2, phone=phone2, email=email2), Person(firstName=first name3, lastName=last name3, address=address3, city=city3, zip=zip3, phone=phone3, email=email3)]");
-        assertThat(dataAfter.toString()).isEqualTo("[Person(firstName=first name1, lastName=last name1, address=address1, city=city1, zip=zip1, phone=phone1, email=email1), Person(firstName=first name2, lastName=last name2, address=address2, city=city2, zip=zip2, phone=phone2, email=email2), Person(firstName=first name3, lastName=last name3, address=address3, city=city3, zip=zip3, phone=phone3, email=email3), Person(firstName=first name4, lastName=last name4, address=address4, city=city4, zip=zip4, phone=phone4, email=email4)]");
+        assertThat(dataBefore.toString()).isEqualTo("[Person(firstName=adult1, lastName=adult1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=child1, lastName=child1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=adult2, lastName=adult2, address=address2, city=Culver, zip=97451, phone=841-874-6512, email=soph@email.com)]");
+        assertThat(dataAfter.toString()).isEqualTo("[Person(firstName=adult1, lastName=adult1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=child1, lastName=child1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=adult2, lastName=adult2, address=address2, city=Culver, zip=97451, phone=841-874-6512, email=soph@email.com), Person(firstName=adult4, lastName=adult4, address=address3, city=Culver, zip=97451, phone=841-874-7512, email=ward@email.com)]");
     }
 
     @Test
     @DisplayName("updatePerson() updates person")
     public void testUpdatePerson(){
         //GIVEN
-        Person person = new Person("first name1","last name1","address01","city01","zip01","phone01","email01");
+        Person person = new Person("adult1","adult1","address01","city01","zip01","phone01","email01");
         var originalData = dataStorage.getPersons();
         var dataBefore = new ArrayList<>(originalData);
         assertThat(dataBefore).doesNotContain(person);
@@ -161,8 +161,8 @@ public class PersonRepositoryTest {
 
         assertThat(dataBefore).isNotSameAs(dataAfter);
         assertThat(dataAfter).contains(person);
-        assertThat(dataBefore.toString()).isEqualTo("[Person(firstName=first name1, lastName=last name1, address=address1, city=city1, zip=zip1, phone=phone1, email=email1), Person(firstName=first name2, lastName=last name2, address=address2, city=city2, zip=zip2, phone=phone2, email=email2), Person(firstName=first name3, lastName=last name3, address=address3, city=city3, zip=zip3, phone=phone3, email=email3)]");
-        assertThat(dataAfter.toString()).isEqualTo("[Person(firstName=first name1, lastName=last name1, address=address01, city=city01, zip=zip01, phone=phone01, email=email01), Person(firstName=first name2, lastName=last name2, address=address2, city=city2, zip=zip2, phone=phone2, email=email2), Person(firstName=first name3, lastName=last name3, address=address3, city=city3, zip=zip3, phone=phone3, email=email3)]");
+        assertThat(dataBefore.toString()).isEqualTo("[Person(firstName=adult1, lastName=adult1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=child1, lastName=child1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=adult2, lastName=adult2, address=address2, city=Culver, zip=97451, phone=841-874-6512, email=soph@email.com)]");
+        assertThat(dataAfter.toString()).isEqualTo("[Person(firstName=adult1, lastName=adult1, address=address01, city=city01, zip=zip01, phone=phone01, email=email01), Person(firstName=child1, lastName=child1, address=address1, city=Culver, zip=97451, phone=841-874-6512, email=jaboyd@email.com), Person(firstName=adult2, lastName=adult2, address=address2, city=Culver, zip=97451, phone=841-874-6512, email=soph@email.com)]");
     }
 
 }

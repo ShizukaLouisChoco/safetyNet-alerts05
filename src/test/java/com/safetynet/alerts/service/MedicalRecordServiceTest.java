@@ -33,15 +33,8 @@ public class MedicalRecordServiceTest {
     @BeforeEach
     public void init(){
         medicalRecordList = new ArrayList<>();
-        LocalDate birthdate1 = LocalDate.of(1990,10,20);
-        LocalDate birthdate2 = LocalDate.of(2020,10,20);
-        List<String> medications = new ArrayList<>();
-        medications.add("medication");
-        List<String> allergies = new ArrayList<>();
-        allergies.add("allergy");
-        medicalRecord = new MedicalRecord("firstName1","lastName1",birthdate1,medications,allergies);
-        medicalRecord2 = new MedicalRecord("firstName2","lastName2",birthdate2,medications,allergies);
-
+        medicalRecord = new MedicalRecord("adult1","adult1",LocalDate.of(1984,3,6),List.of("aznol:350mg", "hydrapermazol:100mg"),List.of("nillacilan"));
+        medicalRecord2 = new MedicalRecord("child1","child1",LocalDate.of(2017,9,6),List.of(),List.of());
         medicalRecordList.add(medicalRecord);
         medicalRecordList.add(medicalRecord2);
     }

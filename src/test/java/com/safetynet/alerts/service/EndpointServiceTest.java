@@ -51,23 +51,16 @@ public class EndpointServiceTest {
         personList = new ArrayList<>();
         fireStationList = new ArrayList<>();
         medicalRecordList = new ArrayList<>();
-        adultPerson = new Person("firstName1", "lastName1","address1","city1","zip1","phone1","email1");
+        adultPerson = new Person("adult1", "adult1","address1","Culver","97451","841-874-6512","jaboyd@email.com");
         personList.add(adultPerson);
-
         fireStation = new FireStation("address1",101);
         fireStation2 = new FireStation("address2",102);
         fireStationList.add(fireStation);
         fireStationList.add(fireStation2);
-        LocalDate birthdate1 = LocalDate.of(1990,10,20);
-        LocalDate birthdate2 = LocalDate.of(2020,10,20);
-        List<String> medications = new ArrayList<>();
-        medications.add("medication");
-        List<String> allergies = new ArrayList<>();
-        allergies.add("allergy");
-        medicalRecord = new MedicalRecord("firstName1","lastName1",birthdate1,medications,allergies);
-        medicalRecord2 = new MedicalRecord("firstName2","lastName2",birthdate2,medications,allergies);
-        medicalRecord3 = new MedicalRecord("firstName3","lastName3",birthdate1,medications,allergies);
-        medicalRecord4 = new MedicalRecord("firstName4","lastName4",birthdate2,medications,allergies);
+        medicalRecord = new MedicalRecord("adult1","adult1",LocalDate.of(1984,3,6),List.of("aznol:350mg", "hydrapermazol:100mg"),List.of("nillacilan"));
+        medicalRecord2 = new MedicalRecord("child1","child",LocalDate.of(2017,9,6),List.of(),List.of());
+        medicalRecord3 = new MedicalRecord("adult2","adult2",LocalDate.of(2000,9,6),List.of(),List.of("shellfish"));
+        medicalRecord4 = new MedicalRecord("adult3","adult3",LocalDate.of(1988,3,6),List.of("aznol:60mg", "hydrapermazol:900mg", "pharmacol:5000mg", "terazine:500mg"),List.of("peanut", "shellfish", "aznol"));
         medicalRecordList.add(medicalRecord);
         medicalRecordList.add(medicalRecord2);
         medicalRecordList.add(medicalRecord3);

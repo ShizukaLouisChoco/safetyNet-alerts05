@@ -86,12 +86,7 @@ public class MedicalRecordControllerTest extends AbstractControllerTest{
     @DisplayName("Test PutMapping")
     public void putMappingMedicalRecordTest() throws Exception {
         //GIVEN
-        LocalDate birthdate = LocalDate.of(2000,2,3);
-        List<String> medications = new ArrayList<>();
-        medications.add("medication2");
-        List<String> allergies = new ArrayList<>();
-        allergies.add("allergy2");
-        MedicalRecord medicalRecord= new MedicalRecord("adult1","adult1",birthdate,medications,allergies);
+        MedicalRecord medicalRecord= new MedicalRecord("child1","child1",LocalDate.of(2017,9,6),List.of(),List.of("penuts"));
         //WHEN
         final var result = mockMvc.perform(put("/medicalrecord")
                 .param("firstName",medicalRecord.getFirstName())
@@ -110,7 +105,7 @@ public class MedicalRecordControllerTest extends AbstractControllerTest{
             assertThat(r.getBirthdate()).isEqualTo(medicalRecord.getBirthdate());
             assertThat(r.getMedications()).isEqualTo(medicalRecord.getMedications());
             assertThat(r.getAllergies()).isEqualTo(medicalRecord.getAllergies());
-            assertThat(r.toString()).isEqualTo("MedicalRecord(firstName=adult1, lastName=adult1, birthdate=2000-02-03, medications=[medication2], allergies=[allergy2])");
+            assertThat(r.toString()).isEqualTo("MedicalRecord(firstName=child1, lastName=child1, birthdate=2017-09-06, medications=[], allergies=[penuts])");
         });
     }
 
