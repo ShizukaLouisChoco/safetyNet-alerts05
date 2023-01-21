@@ -5,15 +5,15 @@ import com.safetynet.alerts.exception.MedicalRecordNotFoundException;
 import com.safetynet.alerts.model.MedicalRecord;
 import com.safetynet.alerts.repository.MedicalRecordRepository;
 import com.safetynet.alerts.service.MedicalRecordService;
-import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Stream;
 
-@Log4j2
 @Service
 public class MedicalRecordServiceImpl implements MedicalRecordService {
-    //log.info("MedicalRecordServiceImpl");
+    private final static Logger logger = LogManager.getLogger("MedicalRecordServiceImpl");
 
     private final MedicalRecordRepository medicalRecordRepository;
 
@@ -28,6 +28,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
      */
     @Override
     public Stream<MedicalRecord> getAllMedicalRecords(){
+        logger.info(".getAllMedicalRecords");
+
         return medicalRecordRepository.getAllMedicalRecords();
     }
 
@@ -38,6 +40,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
      */
     @Override
     public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord) {
+        logger.info(".saveMedicalRecord");
+
         return medicalRecordRepository.saveMedicalRecord(medicalRecord);
     }
     /**
@@ -49,6 +53,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
      */
     @Override
     public  void updateMedicalRecord(String firstName, String lastName,MedicalRecord medicalRecord) throws MedicalRecordNotFoundException {
+        logger.info(".updateMedicalRecord");
 
         medicalRecordRepository.updateMedicalRecord(firstName,lastName,medicalRecord);
     }
@@ -61,6 +66,8 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
      */
     @Override
     public void deleteMedicalRecordByFirstNameAndLastName(String firstName, String lastName) {
+        logger.info(".deleteMedicalRecordByFirstNameAndLastName");
+
         medicalRecordRepository.deleteMedicalRecordByFirstNameAndLastName(firstName,lastName);
     }
 

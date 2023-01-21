@@ -4,17 +4,17 @@ import com.safetynet.alerts.exception.FireStationNotFoundException;
 import com.safetynet.alerts.model.FireStation;
 import com.safetynet.alerts.repository.FireStationRepository;
 import com.safetynet.alerts.service.FireStationService;
-import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Log4j2
 @Service
 public class FireStationServiceImpl implements FireStationService {
 
-    //log.info("FireStationServiceImpl");
+    private final static Logger logger = LogManager.getLogger("FireStationServiceImpl");
     private final FireStationRepository fireStationRepository;
 
 
@@ -28,6 +28,8 @@ public class FireStationServiceImpl implements FireStationService {
      */
     @Override
     public Optional<FireStation> findFireStationByAddress(final String address)  {
+        logger.info(".findFireStationByAddress");
+
         return fireStationRepository.findStationNumberByAddress(address);
     }
     /**
@@ -36,6 +38,8 @@ public class FireStationServiceImpl implements FireStationService {
      */
     @Override
     public List<FireStation> getAllFireStations()  {
+        logger.info(".getAllFireStations");
+
         return fireStationRepository.getAllFireStation().toList();
     }
 
@@ -46,6 +50,8 @@ public class FireStationServiceImpl implements FireStationService {
      */
     @Override
     public FireStation saveFireStation(FireStation fireStation){
+        logger.info(".saveFireStation");
+
         return fireStationRepository.saveFireStation(fireStation);
     }
 
@@ -57,6 +63,8 @@ public class FireStationServiceImpl implements FireStationService {
      */
     @Override
     public FireStation updateFireStation(String address, FireStation fireStation) throws FireStationNotFoundException {
+        logger.info(".updateFireStation");
+
         final var currentFireStation = findFireStationByAddress(address)
                 .orElseThrow(() -> new FireStationNotFoundException());
 
@@ -71,6 +79,8 @@ public class FireStationServiceImpl implements FireStationService {
      */
     @Override
     public void deleteFireStation(String address){
+        logger.info(".deleteFireStation");
+
         fireStationRepository.deleteFireStationByAddress(address);
     }
 

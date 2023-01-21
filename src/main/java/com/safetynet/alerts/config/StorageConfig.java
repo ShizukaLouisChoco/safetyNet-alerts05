@@ -6,7 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.safetynet.alerts.dao.DataStorage;
 import com.safetynet.alerts.dao.impl.DataStorageImpl;
 import com.safetynet.alerts.model.AllData;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -14,7 +14,7 @@ import org.springframework.core.io.ClassPathResource;
 import java.io.File;
 import java.io.IOException;
 
-@Slf4j
+@Log4j2
 @Configuration
 public class StorageConfig {
 

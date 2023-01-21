@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 @Repository
 public class PersonRepositoryImpl implements PersonRepository {
 
-    private final static Logger logger = LogManager.getLogger("PersonRepository");
+    private final static Logger logger = LogManager.getLogger("PersonRepositoryImpl");
 
     private final DataStorage dataStorage;
 
@@ -32,6 +32,8 @@ public class PersonRepositoryImpl implements PersonRepository {
     //get all person list
     @Override
     public Stream<Person> getAllPerson() {
+        logger.info(".getAllPerson");
+
         return dataStorage.getData().getPersons().stream();
     }
 
@@ -42,6 +44,8 @@ public class PersonRepositoryImpl implements PersonRepository {
      */
     @Override
     public Stream<Person> getAllByAddress(String address){
+        logger.info(".getAllByAddress");
+
         return  dataStorage.getPersons()
                 .stream()
                 .filter(p -> p.getAddress().equals(address));
@@ -53,6 +57,8 @@ public class PersonRepositoryImpl implements PersonRepository {
      */
     @Override
     public Stream<Person> getPersonByAddressList(Set<String> fireStationAddressList) {
+        logger.info(".getPersonByAddressList");
+
         return dataStorage
                 .getPersons()
                 .stream()
@@ -65,6 +71,8 @@ public class PersonRepositoryImpl implements PersonRepository {
      */
     @Override
     public Stream<Person> getAllPersonsByCity(String city) {
+        logger.info(".getAllPersonsByCity");
+
         return dataStorage
                 .getPersons()
                 .stream()
@@ -79,6 +87,8 @@ public class PersonRepositoryImpl implements PersonRepository {
      */
     @Override
     public Optional<Person> findPersonByFirstNameAndLastName(String firstName, String lastName) {
+        logger.info(".findPersonByFirstNameAndLastName");
+
         return getAllPerson()
                 .filter(allPersons -> allPersons.getFirstName().equals(firstName) && allPersons.getLastName().equals(lastName))
                 .findFirst();
@@ -92,6 +102,8 @@ public class PersonRepositoryImpl implements PersonRepository {
      */
     @Override
     public Stream<Person> findPersonsByFirstNameOrLastName(String firstName, String lastName) {
+        logger.info(".findPersonsByFirstNameOrLastName");
+
         return getAllPerson()
                 .filter(allPersons -> allPersons.getFirstName().equals(firstName) || allPersons.getLastName().equals(lastName));
     }
@@ -103,6 +115,8 @@ public class PersonRepositoryImpl implements PersonRepository {
      */
     @Override
     public void deleteByFirstNameAndLastName(String firstName, String lastName)  {
+        logger.info(".deleteByFirstNameAndLastName");
+
         findPersonByFirstNameAndLastName(firstName,lastName).ifPresent(p->removePerson(p));
     }
     /**
@@ -110,6 +124,8 @@ public class PersonRepositoryImpl implements PersonRepository {
      * @param person to remove
      */
     private void removePerson(Person person) {
+        logger.info(".removePerson");
+
         dataStorage.getData().getPersons().remove(person);
     }
 
@@ -120,6 +136,8 @@ public class PersonRepositoryImpl implements PersonRepository {
      */
     @Override
     public Person savePerson(Person person) {
+        logger.info(".savePerson");
+
         if (findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName()).isPresent()) {
             throw new IllegalArgumentException("Person exists");
         }
@@ -135,6 +153,8 @@ public class PersonRepositoryImpl implements PersonRepository {
     //update method with update data.json
     @Override
     public void updatePerson(Person person) throws PersonNotFoundException {
+        logger.info(".updatePerson");
+
         var existingPerson = findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName())
                 .orElseThrow(()-> new PersonNotFoundException());
         var index = dataStorage.getPersons().indexOf(existingPerson);

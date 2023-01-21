@@ -13,7 +13,8 @@ import com.safetynet.alerts.repository.FireStationRepository;
 import com.safetynet.alerts.repository.MedicalRecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
 import com.safetynet.alerts.service.EndpointService;
-import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +23,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
-@Log4j2
 @Service
 public class EndpointServiceImpl implements EndpointService {
+    private final static Logger logger = LogManager.getLogger("EndpointServiceImpl");
+
 
     private final FireStationRepository fireStationRepository;
     private final PersonRepository personRepository;
@@ -46,6 +48,8 @@ public class EndpointServiceImpl implements EndpointService {
      */
     @Override
     public PersonInfosWithAdultsAndChildrenNumberDTO getPersonInfosWithAdultAndChildrenNumberByFireStationNumber(Integer fireStationNumber) {
+        logger.info(".getPersonInfosWithAdultAndChildrenNumberByFireStationNumber");
+
         Set<String> fireStationAddress = fireStationRepository
                 .getFireStationsByStationNumber(fireStationNumber)
                 .map(f->f.getAddress())
@@ -68,6 +72,8 @@ public class EndpointServiceImpl implements EndpointService {
      */
     @Override
     public Set<ChildInfoWithFamilyDTO> getChildrenInfosWithFamilyByAddress(String address) {
+        logger.info(".getChildrenInfosWithFamilyByAddress");
+
         var personList = personRepository
                 .getAllByAddress(address)
                 .map(p -> new PersonInfoDTO(p, findMedicalRecordByPerson(p)))
@@ -89,6 +95,7 @@ public class EndpointServiceImpl implements EndpointService {
      */
     @Override
     public Set<String> getPhoneNumbersByFireStationNumber(Integer fireStationNumber) {
+        logger.info(".getPhoneNumbersByFireStationNumber");
 
         var fireStationAddress = fireStationRepository
                 .getFireStationsByStationNumber(fireStationNumber)
@@ -109,6 +116,8 @@ public class EndpointServiceImpl implements EndpointService {
      */
     @Override
     public Map<String, List<PersonInfoDTO>> getPersonsOrderedByAddressByStationNumbers(Set<Integer> fireStationNumbers) {
+        logger.info(".getPersonsOrderedByAddressByStationNumbers");
+
         //get Address list from station numbers list
         Set<String> fireStationAddressList = fireStationRepository
                 .getAllFireStationByStationNumberList(fireStationNumbers)
@@ -130,6 +139,8 @@ public class EndpointServiceImpl implements EndpointService {
      */
     @Override
     public Set<PersonInfoDTO> getPersonInfosByFirstNameOrLastName(String firstName, String lastName) {
+        logger.info(".getPersonInfosByFirstNameOrLastName");
+
         return personRepository.findPersonsByFirstNameOrLastName(firstName, lastName)
                 .map(p -> new PersonInfoDTO(p, findMedicalRecordByPerson(p)))
                 .collect(Collectors.toSet());
@@ -143,6 +154,8 @@ public class EndpointServiceImpl implements EndpointService {
      */
     @Override
     public Set<String> getEmailsByCity(String city) {
+        logger.info(".getEmailsByCity");
+
         //get Person list by City
         return personRepository
                 .getAllPersonsByCity(city)
@@ -157,6 +170,7 @@ public class EndpointServiceImpl implements EndpointService {
      */
     @Override
     public PersonInfosWithFireStationNumberDTO getPersonInfosWithFireStationNumber(String address){
+        logger.info(".getPersonInfosWithFireStationNumber");
 
         // number de la firestation
         // trouver les personnes a cette adresse
@@ -181,6 +195,8 @@ public class EndpointServiceImpl implements EndpointService {
      * @exception MedicalRecordNotFoundException when the medical record with first name and last name of person searched doesn't exist
      */
     private MedicalRecord findMedicalRecordByPerson(Person person){
+        logger.info(".findMedicalRecordByPerson");
+
         return medicalRecordRepository.findMedicalRecordByFirstNameAndLastName(person.getFirstName(), person.getLastName())
                 .orElseThrow(MedicalRecordNotFoundException::new);
     }

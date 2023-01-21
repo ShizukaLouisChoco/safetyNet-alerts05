@@ -28,6 +28,7 @@ public class PersonController {
     @GetMapping("persons")
     public List<Person> getAllPersons(){
         logger.info(".getAllPersons");
+
         return personService.getAllPerson().toList();
     }
 
@@ -40,6 +41,7 @@ public class PersonController {
     @PostMapping(value = "person")
     public Person createPerson(@RequestBody Person person){
         logger.info(".createPerson Person : {} ",person);
+
         return personService.savePerson(person);
     }
 
@@ -51,6 +53,7 @@ public class PersonController {
     @PutMapping("person")
     public Person updatePerson(@RequestBody Person person) throws PersonNotFoundException {
         logger.info(".updatePerson person : {}",person);
+
         return personService.updatePerson(person);
     }
 
@@ -63,6 +66,7 @@ public class PersonController {
     @DeleteMapping("person")
     public void deletePerson(@RequestParam("firstName") final String firstName, @RequestParam("lastName") final String lastName) {
         logger.info(".deletePerson");
+
         personService.deletePerson(firstName, lastName);
     }
 

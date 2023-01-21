@@ -10,12 +10,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 @Log4j2
 @NoArgsConstructor
 public class DataStorageImpl implements DataStorage {
+
+    private final static Logger logger = LogManager.getLogger("DataStorageImpl");
 
     @Getter
     @Setter
@@ -27,7 +31,8 @@ public class DataStorageImpl implements DataStorage {
      */
     @Override
     public List<Person> getPersons() {
-        log.info("Get all persons");
+        log.info(".getPersons");
+
         return data.getPersons();
     }
 
@@ -37,7 +42,8 @@ public class DataStorageImpl implements DataStorage {
      */
     @Override
     public List<FireStation> getFireStations() {
-        log.info("Get all fire stations");
+        log.info(".getFireStations");
+
         return data.getFirestations();
     }
     /**
@@ -46,7 +52,8 @@ public class DataStorageImpl implements DataStorage {
      */
     @Override
     public List<MedicalRecord> getMedicalRecords() {
-        log.info("Get all medical records");
+        log.info(".getMedicalRecords");
+
         return data.getMedicalrecords();
     }
 
@@ -56,6 +63,8 @@ public class DataStorageImpl implements DataStorage {
      */
     @Override
     public void setAllData(AllData data) {
+        log.info(".setAllData {}",data);
+
         this.data = data;
     }
 

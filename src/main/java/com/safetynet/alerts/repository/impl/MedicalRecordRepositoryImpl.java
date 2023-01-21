@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 @Repository
 public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
 
-    private final static Logger logger = LogManager.getLogger("MedicalRecordRepository");
+    private final static Logger logger = LogManager.getLogger("MedicalRecordRepositoryImpl");
 
 
     private final DataStorage dataStorage;
@@ -30,6 +30,8 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
      */
     @Override
     public Stream<MedicalRecord> getAllMedicalRecords(){
+        logger.info(".getAllMedicalRecords");
+
         return dataStorage.getData().getMedicalrecords().stream();
     }
 
@@ -41,6 +43,8 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
      */
     @Override
     public Optional<MedicalRecord> findMedicalRecordByFirstNameAndLastName(final String firstName, final String lastName) {
+        logger.info(".findMedicalRecordByFirstNameAndLastName");
+
         return getAllMedicalRecords()
                 .filter(allMedicalRecords -> allMedicalRecords.getFirstName().equals(firstName) && allMedicalRecords.getLastName().equals(lastName))
                 .findFirst();
@@ -55,6 +59,7 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
      */
     @Override
     public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord)  {
+        logger.info(".saveMedicalRecord");
 
         if(findMedicalRecordByFirstNameAndLastName(medicalRecord.getFirstName(),medicalRecord.getLastName()).isPresent()){
             throw new IllegalArgumentException("Medical Record exists");
@@ -71,6 +76,8 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
      */
     @Override
     public void updateMedicalRecord(String firstName, String lastName,MedicalRecord medicalRecord){
+        logger.info(".updateMedicalRecord");
+
         var existingMedicalRecord = findMedicalRecordByFirstNameAndLastName(firstName, lastName)
                 .orElseThrow(() -> new MedicalRecordNotFoundException());
 
@@ -84,6 +91,8 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
      */
     @Override
     public void deleteMedicalRecordByFirstNameAndLastName(String firstName, String lastName) {
+        logger.info(".deleteMedicalRecordByFirstNameAndLastName");
+
         findMedicalRecordByFirstNameAndLastName(firstName,lastName).ifPresent(m->removeMedicalRecord(m));
     }
     /**
@@ -91,6 +100,8 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
      * @param medicalRecord to delete
      */
     private void removeMedicalRecord(MedicalRecord medicalRecord){
+        logger.info(".removeMedicalRecord");
+
         dataStorage.getData().getMedicalrecords().remove(medicalRecord);
     }
 }
