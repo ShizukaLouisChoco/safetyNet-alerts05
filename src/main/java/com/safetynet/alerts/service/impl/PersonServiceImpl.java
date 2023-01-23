@@ -19,14 +19,13 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
 
     public PersonServiceImpl(PersonRepository personRepository) {
-        logger.info(".getAllPerson");
-
         this.personRepository = personRepository;
     }
 
     @Override
     public Optional<Person> findPersonByFirstNameAndLastName(final String firstName, final String lastName) {
         logger.info(".findPersonByFirstNameAndLastName");
+        logger.debug(" details: firstName:{}, lastName:{}", firstName, lastName);
 
         return personRepository.findPersonByFirstNameAndLastName(firstName,lastName);
     }
@@ -35,6 +34,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person savePerson(Person person) {
         logger.info(".savePerson");
+        logger.debug(" details: Person :{}", person);
 
         return personRepository.savePerson(person);
     }
@@ -42,8 +42,8 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public Person updatePerson(Person person) throws PersonNotFoundException {
         logger.info(".updatePerson");
+        logger.debug(" details: Person :{}", person);
 
-        //String msg = "No person with that name exists";
         final var currentPerson = findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName())
                 .orElseThrow(() -> new PersonNotFoundException());
 
@@ -56,6 +56,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void deletePerson(String firstName, String lastName) {
         logger.info(".deletePerson");
+        logger.debug(" details: firstName:{},lastName: {}", firstName,lastName);
 
         personRepository.deleteByFirstNameAndLastName(firstName,lastName);
 

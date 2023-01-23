@@ -44,6 +44,7 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
     @Override
     public Optional<MedicalRecord> findMedicalRecordByFirstNameAndLastName(final String firstName, final String lastName) {
         logger.info(".findMedicalRecordByFirstNameAndLastName");
+        logger.debug(" details: firstName:{},lastName: {}", firstName, lastName);
 
         return getAllMedicalRecords()
                 .filter(allMedicalRecords -> allMedicalRecords.getFirstName().equals(firstName) && allMedicalRecords.getLastName().equals(lastName))
@@ -60,6 +61,7 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
     @Override
     public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord)  {
         logger.info(".saveMedicalRecord");
+        logger.debug(" details: MedicalRecord:{}", medicalRecord);
 
         if(findMedicalRecordByFirstNameAndLastName(medicalRecord.getFirstName(),medicalRecord.getLastName()).isPresent()){
             throw new IllegalArgumentException("Medical Record exists");
@@ -77,6 +79,7 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
     @Override
     public void updateMedicalRecord(String firstName, String lastName,MedicalRecord medicalRecord){
         logger.info(".updateMedicalRecord");
+        logger.debug(" details: firstName:{},lastName: {}, medicalRecord: {}", firstName, lastName, medicalRecord);
 
         var existingMedicalRecord = findMedicalRecordByFirstNameAndLastName(firstName, lastName)
                 .orElseThrow(() -> new MedicalRecordNotFoundException());
@@ -92,6 +95,7 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
     @Override
     public void deleteMedicalRecordByFirstNameAndLastName(String firstName, String lastName) {
         logger.info(".deleteMedicalRecordByFirstNameAndLastName");
+        logger.debug(" details: firstName:{},lastName: {}", firstName, lastName);
 
         findMedicalRecordByFirstNameAndLastName(firstName,lastName).ifPresent(m->removeMedicalRecord(m));
     }
@@ -101,6 +105,7 @@ public class MedicalRecordRepositoryImpl implements MedicalRecordRepository {
      */
     private void removeMedicalRecord(MedicalRecord medicalRecord){
         logger.info(".removeMedicalRecord");
+        logger.debug(" details: MedicalRecord:{}", medicalRecord);
 
         dataStorage.getData().getMedicalrecords().remove(medicalRecord);
     }

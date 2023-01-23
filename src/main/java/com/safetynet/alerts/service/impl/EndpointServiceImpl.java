@@ -49,6 +49,7 @@ public class EndpointServiceImpl implements EndpointService {
     @Override
     public PersonInfosWithAdultsAndChildrenNumberDTO getPersonInfosWithAdultAndChildrenNumberByFireStationNumber(Integer fireStationNumber) {
         logger.info(".getPersonInfosWithAdultAndChildrenNumberByFireStationNumber");
+        logger.debug(" details: fireStationNumber:{}", fireStationNumber);
 
         Set<String> fireStationAddress = fireStationRepository
                 .getFireStationsByStationNumber(fireStationNumber)
@@ -73,6 +74,7 @@ public class EndpointServiceImpl implements EndpointService {
     @Override
     public Set<ChildInfoWithFamilyDTO> getChildrenInfosWithFamilyByAddress(String address) {
         logger.info(".getChildrenInfosWithFamilyByAddress");
+        logger.debug(" details: address: {}", address);
 
         var personList = personRepository
                 .getAllByAddress(address)
@@ -96,6 +98,7 @@ public class EndpointServiceImpl implements EndpointService {
     @Override
     public Set<String> getPhoneNumbersByFireStationNumber(Integer fireStationNumber) {
         logger.info(".getPhoneNumbersByFireStationNumber");
+        logger.debug(" details: fireStationNumber: {}", fireStationNumber);
 
         var fireStationAddress = fireStationRepository
                 .getFireStationsByStationNumber(fireStationNumber)
@@ -117,6 +120,7 @@ public class EndpointServiceImpl implements EndpointService {
     @Override
     public Map<String, List<PersonInfoDTO>> getPersonsOrderedByAddressByStationNumbers(Set<Integer> fireStationNumbers) {
         logger.info(".getPersonsOrderedByAddressByStationNumbers");
+        logger.debug(" details: fireStationNumbers:{}", fireStationNumbers);
 
         //get Address list from station numbers list
         Set<String> fireStationAddressList = fireStationRepository
@@ -140,6 +144,7 @@ public class EndpointServiceImpl implements EndpointService {
     @Override
     public Set<PersonInfoDTO> getPersonInfosByFirstNameOrLastName(String firstName, String lastName) {
         logger.info(".getPersonInfosByFirstNameOrLastName");
+        logger.debug(" details: firstName:{},lastName: {}", firstName, lastName);
 
         return personRepository.findPersonsByFirstNameOrLastName(firstName, lastName)
                 .map(p -> new PersonInfoDTO(p, findMedicalRecordByPerson(p)))
@@ -155,6 +160,7 @@ public class EndpointServiceImpl implements EndpointService {
     @Override
     public Set<String> getEmailsByCity(String city) {
         logger.info(".getEmailsByCity");
+        logger.debug(" details: city: {}", city);
 
         //get Person list by City
         return personRepository
@@ -171,6 +177,7 @@ public class EndpointServiceImpl implements EndpointService {
     @Override
     public PersonInfosWithFireStationNumberDTO getPersonInfosWithFireStationNumber(String address){
         logger.info(".getPersonInfosWithFireStationNumber");
+        logger.debug(" details: address:{}", address);
 
         // number de la firestation
         // trouver les personnes a cette adresse
@@ -196,6 +203,7 @@ public class EndpointServiceImpl implements EndpointService {
      */
     private MedicalRecord findMedicalRecordByPerson(Person person){
         logger.info(".findMedicalRecordByPerson");
+        logger.debug(" details: Person {}", person);
 
         return medicalRecordRepository.findMedicalRecordByFirstNameAndLastName(person.getFirstName(), person.getLastName())
                 .orElseThrow(MedicalRecordNotFoundException::new);

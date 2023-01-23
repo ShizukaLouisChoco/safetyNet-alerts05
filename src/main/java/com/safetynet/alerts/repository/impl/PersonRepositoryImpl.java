@@ -45,6 +45,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public Stream<Person> getAllByAddress(String address){
         logger.info(".getAllByAddress");
+        logger.debug(" details: address: {}",address);
 
         return  dataStorage.getPersons()
                 .stream()
@@ -58,6 +59,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public Stream<Person> getPersonByAddressList(Set<String> fireStationAddressList) {
         logger.info(".getPersonByAddressList");
+        logger.debug(" details: fireStationAddressList: {}", fireStationAddressList);
 
         return dataStorage
                 .getPersons()
@@ -72,6 +74,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public Stream<Person> getAllPersonsByCity(String city) {
         logger.info(".getAllPersonsByCity");
+        logger.debug(" details: city:{}", city);
 
         return dataStorage
                 .getPersons()
@@ -88,6 +91,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public Optional<Person> findPersonByFirstNameAndLastName(String firstName, String lastName) {
         logger.info(".findPersonByFirstNameAndLastName");
+        logger.debug(" details: firstName:{},lastName: {}", firstName, lastName);
 
         return getAllPerson()
                 .filter(allPersons -> allPersons.getFirstName().equals(firstName) && allPersons.getLastName().equals(lastName))
@@ -103,6 +107,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public Stream<Person> findPersonsByFirstNameOrLastName(String firstName, String lastName) {
         logger.info(".findPersonsByFirstNameOrLastName");
+        logger.debug(" details: firstName:{},lastName: {}", firstName, lastName);
 
         return getAllPerson()
                 .filter(allPersons -> allPersons.getFirstName().equals(firstName) || allPersons.getLastName().equals(lastName));
@@ -116,6 +121,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public void deleteByFirstNameAndLastName(String firstName, String lastName)  {
         logger.info(".deleteByFirstNameAndLastName");
+        logger.debug(" details: firstName:{},lastName: {}", firstName, lastName);
 
         findPersonByFirstNameAndLastName(firstName,lastName).ifPresent(p->removePerson(p));
     }
@@ -125,6 +131,7 @@ public class PersonRepositoryImpl implements PersonRepository {
      */
     private void removePerson(Person person) {
         logger.info(".removePerson");
+        logger.debug(" details: Person:{}", person);
 
         dataStorage.getData().getPersons().remove(person);
     }
@@ -137,6 +144,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public Person savePerson(Person person) {
         logger.info(".savePerson");
+        logger.debug(" details: Person:{}", person);
 
         if (findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName()).isPresent()) {
             throw new IllegalArgumentException("Person exists");
@@ -154,6 +162,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     @Override
     public void updatePerson(Person person) throws PersonNotFoundException {
         logger.info(".updatePerson");
+        logger.debug(" details: Person:{}", person);
 
         var existingPerson = findPersonByFirstNameAndLastName(person.getFirstName(), person.getLastName())
                 .orElseThrow(()-> new PersonNotFoundException());

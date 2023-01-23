@@ -29,6 +29,7 @@ public class FireStationServiceImpl implements FireStationService {
     @Override
     public Optional<FireStation> findFireStationByAddress(final String address)  {
         logger.info(".findFireStationByAddress");
+        logger.debug(" details: address:{}", address);
 
         return fireStationRepository.findStationNumberByAddress(address);
     }
@@ -51,6 +52,7 @@ public class FireStationServiceImpl implements FireStationService {
     @Override
     public FireStation saveFireStation(FireStation fireStation){
         logger.info(".saveFireStation");
+        logger.debug(" details: fireStation:{}", fireStation);
 
         return fireStationRepository.saveFireStation(fireStation);
     }
@@ -80,6 +82,7 @@ public class FireStationServiceImpl implements FireStationService {
     @Override
     public void deleteFireStation(String address){
         logger.info(".deleteFireStation");
+        logger.debug(" details: address:{}", address);
 
         fireStationRepository.deleteFireStationByAddress(address);
     }

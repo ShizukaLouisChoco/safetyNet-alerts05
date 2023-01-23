@@ -27,6 +27,9 @@ public class FireStationController {
     @GetMapping("firestations")
     public List<FireStation> getAllFireStations() {
         logger.info(".getAllFireStations");
+        logger.info("Accessed endpoint URL:/firestations");
+        logger.debug("Request details: GETMapping");
+
         return fireStationService.getAllFireStations();
     }
 
@@ -39,6 +42,9 @@ public class FireStationController {
     @PostMapping(value = "firestation")
     public FireStation createFireStation(@RequestBody FireStation fireStation){
         logger.info(".createFireStation");
+        logger.info("Accessed endpoint URL:/firestation");
+        logger.debug("Request details: POSTMapping, Body fireStation :{}", fireStation);
+
         return fireStationService.saveFireStation(fireStation);
     }
 
@@ -50,6 +56,9 @@ public class FireStationController {
     @PutMapping("firestation")
     public FireStation updateFireStation(@RequestBody FireStation fireStation) throws FireStationNotFoundException{
         logger.info(".updateFireStation");
+        logger.info("Accessed endpoint URL:/firestation");
+        logger.debug("Request details: PUTMapping, Body fireStation :{}", fireStation);
+
         return fireStationService.updateFireStation(fireStation.getAddress(), fireStation);
     }
 
@@ -61,6 +70,9 @@ public class FireStationController {
     @DeleteMapping("firestation")
     public void deleteFireStation(@RequestParam("address") final String address){
         logger.info(".deleteFireStation");
+        logger.info("Accessed endpoint URL:/firestation");
+        logger.debug("Request details: DELETEMapping, address: {}", address);
+
         fireStationService.deleteFireStation(address);
     }
 

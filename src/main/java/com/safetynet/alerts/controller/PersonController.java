@@ -28,6 +28,8 @@ public class PersonController {
     @GetMapping("persons")
     public List<Person> getAllPersons(){
         logger.info(".getAllPersons");
+        logger.info("Accessed endpoint URL:/persons");
+        logger.debug("Request details: GETMapping");
 
         return personService.getAllPerson().toList();
     }
@@ -40,7 +42,9 @@ public class PersonController {
      */
     @PostMapping(value = "person")
     public Person createPerson(@RequestBody Person person){
-        logger.info(".createPerson Person : {} ",person);
+        logger.info(".createPerson");
+        logger.info("Accessed endpoint URL:/person");
+        logger.debug("Request details: POSTMapping, Body person :{}", person);
 
         return personService.savePerson(person);
     }
@@ -52,7 +56,9 @@ public class PersonController {
      */
     @PutMapping("person")
     public Person updatePerson(@RequestBody Person person) throws PersonNotFoundException {
-        logger.info(".updatePerson person : {}",person);
+        logger.info(".updatePerson");
+        logger.info("Accessed endpoint URL:/person");
+        logger.debug("Request details: PUTMapping, Body person :{}", person);
 
         return personService.updatePerson(person);
     }
@@ -66,6 +72,8 @@ public class PersonController {
     @DeleteMapping("person")
     public void deletePerson(@RequestParam("firstName") final String firstName, @RequestParam("lastName") final String lastName) {
         logger.info(".deletePerson");
+        logger.info("Accessed endpoint URL:/person");
+        logger.debug("Request details: DELETEMapping, firstName :{}, lastName{}",firstName, lastName);
 
         personService.deletePerson(firstName, lastName);
     }

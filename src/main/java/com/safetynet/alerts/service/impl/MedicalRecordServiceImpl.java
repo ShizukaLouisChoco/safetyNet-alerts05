@@ -41,6 +41,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     @Override
     public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord) {
         logger.info(".saveMedicalRecord");
+        logger.debug(" details: MedicalRecord :{}", medicalRecord);
 
         return medicalRecordRepository.saveMedicalRecord(medicalRecord);
     }
@@ -54,6 +55,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     @Override
     public  void updateMedicalRecord(String firstName, String lastName,MedicalRecord medicalRecord) throws MedicalRecordNotFoundException {
         logger.info(".updateMedicalRecord");
+        logger.debug(" details: firstName:{},lastName: {}", firstName, lastName);
 
         medicalRecordRepository.updateMedicalRecord(firstName,lastName,medicalRecord);
     }
@@ -67,6 +69,7 @@ public class MedicalRecordServiceImpl implements MedicalRecordService {
     @Override
     public void deleteMedicalRecordByFirstNameAndLastName(String firstName, String lastName) {
         logger.info(".deleteMedicalRecordByFirstNameAndLastName");
+        logger.debug(" details: firstName:{},lastName: {}", firstName, lastName);
 
         medicalRecordRepository.deleteMedicalRecordByFirstNameAndLastName(firstName,lastName);
     }

@@ -27,6 +27,9 @@ public class MedicalRecordController {
     @GetMapping("medicalrecords")
     public List<MedicalRecord> getAllMedicalRecords() {
         logger.info(".getAllMedicalRecords");
+        logger.info("Accessed endpoint URL:/medicalrecords");
+        logger.debug("Request details: GETMapping");
+
         return medicalRecordService.getAllMedicalRecords().toList();
     }
 
@@ -39,6 +42,8 @@ public class MedicalRecordController {
     @PostMapping(value = "medicalrecord")
     public MedicalRecord createMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
         logger.info(".createMedicalRecord");
+        logger.info("Accessed endpoint URL:/medicalrecord");
+        logger.debug("Request details: POSTMapping, Body medicalRecord :{}", medicalRecord);
         return medicalRecordService.saveMedicalRecord(medicalRecord);
     }
 
@@ -50,6 +55,9 @@ public class MedicalRecordController {
     @PutMapping("medicalrecord")
     public MedicalRecord updateMedicalRecord(@RequestBody MedicalRecord medicalRecord) throws MedicalRecordNotFoundException{
         logger.info(".updateMedicalRecord");
+        logger.info("Accessed endpoint URL:/medicalrecord");
+        logger.debug("Request details: PUTMapping, Body medicalRecord :{}", medicalRecord);
+
         medicalRecordService.updateMedicalRecord(medicalRecord.getFirstName(), medicalRecord.getLastName(),medicalRecord);
         return medicalRecord;
     }
@@ -62,6 +70,9 @@ public class MedicalRecordController {
     @DeleteMapping("medicalrecord")
     public void deleteMedicalRecord(@RequestParam("firstName") final String firstName, @RequestParam("lastName") final String lastName) {
         logger.info(".deleteMedicalRecord");
+        logger.info("Accessed endpoint URL:/medicalrecord");
+        logger.debug("Request details: DELETEMapping, firstName: {}, lastName: {}",firstName,lastName);
+
         medicalRecordService.deleteMedicalRecordByFirstNameAndLastName(firstName, lastName);
     }
 

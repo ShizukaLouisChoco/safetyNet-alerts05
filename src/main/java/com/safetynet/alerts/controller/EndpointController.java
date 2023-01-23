@@ -35,6 +35,8 @@ public class EndpointController {
     @GetMapping(value = "firestation")
     public PersonInfosWithAdultsAndChildrenNumberDTO getPersonInfosWithAdultAndChildrenNumber(@RequestParam("stationNumber") final Integer stationNumber) {
         logger.info(".getPersonInfosWithAdultAndChildrenNumber");
+        logger.info("Accessed endpoint URL:/firestation");
+        logger.debug("Request details: GETMapping, stationNumber :{}", stationNumber);
         return endpointService.getPersonInfosWithAdultAndChildrenNumberByFireStationNumber(stationNumber);
     }
 
@@ -49,6 +51,8 @@ public class EndpointController {
     @GetMapping(value = "childAlert")
     public  Set<ChildInfoWithFamilyDTO> getChildrenInfosWithFamilyByAddress(@RequestParam("address")final String address){
         logger.info(".getChildrenInfosWithFamilyByAddress");
+        logger.info("Accessed endpoint URL:/childAlert");
+        logger.debug("Request details: GETMapping, address :{}", address);
         return  endpointService.getChildrenInfosWithFamilyByAddress(address);
     }
 
@@ -62,6 +66,8 @@ public class EndpointController {
     @GetMapping(value = "phoneAlert")
     public  Set<String> getPhoneNumberSetByFireStationNumber(@RequestParam("firestation")final Integer firestationNumber){
         logger.info(".getPhoneNumberSetByFireStationNumber");
+        logger.info("Accessed endpoint URL:/phoneAlert");
+        logger.debug("Request details: GETMapping, firestation :{}", firestationNumber);
         return endpointService.getPhoneNumbersByFireStationNumber(firestationNumber);
     }
 
@@ -76,6 +82,8 @@ public class EndpointController {
     @GetMapping(value = "fire")
     public PersonInfosWithFireStationNumberDTO getPersonInfosByAddress(@RequestParam("address") final String address) {
         logger.info(".getPersonInfosByAddress");
+        logger.info("Accessed endpoint URL:/fire");
+        logger.debug("Request details: GETMapping, address :{}", address);
         return endpointService.getPersonInfosWithFireStationNumber(address);
     }
 
@@ -89,6 +97,8 @@ public class EndpointController {
     @GetMapping(value = "flood/stations")
     public Map<String, List<PersonInfoDTO>> getOrderedPersonInfoByStationNumbers(@RequestParam("stations")final Set<Integer> stationNumbers){
         logger.info(".getOrderedPersonInfoByStationNumbers");
+        logger.info("Accessed endpoint URL:/flood/stations");
+        logger.debug("Request details: GETMapping, stationNumbers :{}", stationNumbers);
         return endpointService.getPersonsOrderedByAddressByStationNumbers(stationNumbers);
     }
 
@@ -105,6 +115,8 @@ public class EndpointController {
     @GetMapping(value = "personInfo")
     public Set<PersonInfoDTO> getPersonsByFirstNameAndLastName(@RequestParam(name = "firstName", required = true)final String firstName,@RequestParam(name = "lastName", required = false)final String lastName){
         logger.info(".getPersonsByFirstNameAndLastName");
+        logger.info("Accessed endpoint URL:/personInfo");
+        logger.debug("Request details: GETMapping, firstName :{}, lastName {}", firstName,lastName);
         return endpointService.getPersonInfosByFirstNameOrLastName(firstName,lastName);
     }
 
@@ -117,6 +129,8 @@ public class EndpointController {
     @GetMapping(value="communityEmail")
     public Set<String> getEmailSetByCity(@RequestParam("city")final String city)  {
         logger.info(".getEmailSetByCity");
+        logger.info("Accessed endpoint URL:/communityEmail");
+        logger.debug("Request details: GETMapping, city :{}", city);
         return endpointService.getEmailsByCity(city);
     }
 }

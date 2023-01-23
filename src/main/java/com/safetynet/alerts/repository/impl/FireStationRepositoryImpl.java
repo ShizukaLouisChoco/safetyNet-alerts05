@@ -42,6 +42,7 @@ public class FireStationRepositoryImpl implements FireStationRepository {
     @Override
     public Stream<FireStation> getFireStationsByStationNumber(Integer number) {
         logger.info(".getFireStationsByStationNumber");
+        logger.debug(" details: StationNumber:{}", number);
 
         return dataStorage
                 .getFireStations()
@@ -56,6 +57,7 @@ public class FireStationRepositoryImpl implements FireStationRepository {
     @Override
     public Stream<FireStation> getFireStationsByAddress(String address) {
         logger.info(".getFireStationsByAddress");
+        logger.debug(" details: address:{}", address);
 
         return dataStorage
                 .getFireStations()
@@ -70,6 +72,7 @@ public class FireStationRepositoryImpl implements FireStationRepository {
     @Override
     public Stream<FireStation> getAllFireStationByStationNumberList(Set<Integer> fireStationNumbers) {
         logger.info(".getAllFireStationByStationNumberList");
+        logger.debug(" details: fireStationNumbers: {}", fireStationNumbers);
 
         return dataStorage
                 .getFireStations()
@@ -85,6 +88,7 @@ public class FireStationRepositoryImpl implements FireStationRepository {
     @Override
     public Optional<FireStation> findStationNumberByAddress(String address) {
         logger.info(".findStationNumberByAddress");
+        logger.debug(" details: address:{}", address);
 
         return getAllFireStation()
                 .filter(allFireStations -> allFireStations.getAddress().equals(address)) // return ONLY firstation with getAddress = address => Stream <FireStation> with getAddress = address
@@ -97,6 +101,7 @@ public class FireStationRepositoryImpl implements FireStationRepository {
     @Override
     public void deleteFireStationByAddress(String address) {
         logger.info(".deleteFireStationByAddress");
+        logger.debug(" details: address:{}", address);
 
         findStationNumberByAddress(address).ifPresent(this::removeFireStation);
     }
@@ -109,6 +114,7 @@ public class FireStationRepositoryImpl implements FireStationRepository {
     @Override
     public FireStation saveFireStation(FireStation fireStation)  {
         logger.info(".saveFireStation");
+        logger.debug(" details: fireStation:{}", fireStation);
 
         if (findStationNumberByAddress(fireStation.getAddress()).isPresent()) {
             throw new IllegalArgumentException("FireStation already exists");
@@ -126,6 +132,7 @@ public class FireStationRepositoryImpl implements FireStationRepository {
     @Override
     public void updateFireStation(FireStation fireStation) throws FireStationNotFoundException  {
         logger.info(".updateFireStation");
+        logger.debug(" details: fireStation: {}", fireStation);
 
         var existingStation = findStationNumberByAddress(fireStation.getAddress())
                 .orElseThrow(() -> new FireStationNotFoundException());
@@ -141,6 +148,7 @@ public class FireStationRepositoryImpl implements FireStationRepository {
     //remove method
     private void removeFireStation(FireStation fireStation){
         logger.info(".removeFireStation");
+        logger.debug(" details: fireStation: {}", fireStation);
 
         dataStorage.getData().getFirestations().remove(fireStation);
 
